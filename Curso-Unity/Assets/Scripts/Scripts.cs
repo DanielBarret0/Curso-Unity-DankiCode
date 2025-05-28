@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class Scripts : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Tipos de Variaveis
+    // Inteiro
+    public int vida = 10;
+    // Número flutuante
+    private float forca = 10.5f;
+    // Boleano
+    private bool estarVivo = true;
+    // Unity
+    GameObject player;
+    // Unity
+    Rigidbody rig;
+
+    // É chamado uma vez ao inicializar
     void Start()
     {
-        Debug.Log("teste");
+        Debug.Log(vida);
     }
 
-    // Update is called once per frame
+    // É chamda a cada frame
     void Update()
     {
-        
+
     }
 }
