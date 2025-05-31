@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class Player1 : MonoBehaviour
 {
 
     public float speed = 3f;
-    public float jumpForce = 5f;
+    public float jumpForce = 8f;
+
+    private bool isJumping;
+    private bool doubleJump;
 
     private Rigidbody2D rig;
     private Animator anim;
@@ -20,6 +23,7 @@ public class player : MonoBehaviour
     void Update()
     {
         Move();
+        Jump();
     }
 
     void Move()
@@ -30,17 +34,43 @@ public class player : MonoBehaviour
         rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocity.y);
 
         // Andando pra direita
-        if (movement > 0) {
+        if (movement > 0)
+        {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
         // Andando pra esquerda
-        if (movement < 0) {
+        if (movement < 0)
+        {
             transform.eulerAngles = new Vector3(0, 180f, 0);
         }
     }
 
     void Jump()
     {
-        
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (!isJumping)
+            {
+                rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                doubleJump = true;
+                isJumping = true;
+            }
+            else
+            {
+                if (doubleJump)
+                {
+                    rig.AddForce(new Vector2(0, jumpForce * 2), ForceMode2D.Impulse);
+                    doubleJump = false;
+                }
+            }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collisionInfo)
+    {
+        if (collisionInfo.gameObject.layer == 8)
+        {
+            isJumping = false;
+        }
     }
 }

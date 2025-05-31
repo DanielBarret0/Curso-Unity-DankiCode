@@ -1492,7 +1492,7 @@ GameObject:
   - component: {fileID: 489172007}
   - component: {fileID: 489172006}
   - component: {fileID: 489172010}
-  - component: {fileID: 489172009}
+  - component: {fileID: 489172011}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -1530,7 +1530,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1576,8 +1576,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0075218193, y: -0.01939507}
-  m_Size: {x: 0.07486912, y: 0.12728551}
+  m_Offset: {x: -0.0075218193, y: -0.03831293}
+  m_Size: {x: 0.07486912, y: 0.11464288}
   m_Direction: 0
 --- !u!212 &489172008
 SpriteRenderer:
@@ -1634,20 +1634,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &489172009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489172004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c2398ca384971244a1fdc70759186f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  jumpForce: 5
 --- !u!95 &489172010
 Animator:
   serializedVersion: 7
@@ -1670,6 +1656,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &489172011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489172004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92c6036d649f9a4f885ac3eae92fd87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  jumpForce: 5
 --- !u!1 &498445393
 GameObject:
   m_ObjectHideFlags: 0
@@ -13946,7 +13946,7 @@ GameObject:
   - component: {fileID: 2047021034}
   - component: {fileID: 2047021033}
   - component: {fileID: 2047021032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14456,7 +14456,7 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 1
       m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 1
+      m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -14741,7 +14741,7 @@ Tilemap:
   - m_RefCount: 50
     m_Data: {fileID: 545397902, guid: 55add8dc393b4cb4d8596a0d9b15ad57, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3
+  - m_RefCount: 4
     m_Data:
       e00: -1
       e01: 0
@@ -14759,7 +14759,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 64
+  - m_RefCount: 63
     m_Data:
       e00: -1
       e01: 0
