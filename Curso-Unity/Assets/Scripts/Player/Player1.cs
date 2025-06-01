@@ -1,47 +1,71 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player1 : MonoBehaviour
 {
+    public float speed = 10f;
+    public float jumpForce;
 
-    public float speed = 3f;
-    public float jumpForce = 8f;
+    public GameObject Bow;
+    public Transform FirePoint;
 
     private bool isJumping;
     private bool doubleJump;
+    private bool isFiring;
+    private float movement;
 
     private Rigidbody2D rig;
     private Animator anim;
 
     void Start()
     {
-        // ao inicialiar o player, pega o componente Rigidbody2D e Animator
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Move();
         Jump();
+        BowFire();
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
     void Move()
     {
-        // Parado valor é 0, Direito valor Max 1, Esquerda valor Max -1
-        float movement = Input.GetAxis("Horizontal");
-        // Adiciona velocidade ao corpo no eixo X e y
-        rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocity.y);
+        movement = Input.GetAxis("Horizontal");
+        rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocity.y); // corrigido: linearVelocity para velocity
 
-        // Andando pra direita
         if (movement > 0)
         {
+            if (!isJumping)
+            {
+                anim.SetInteger("transition", 1);
+            }
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        // Andando pra esquerda
         if (movement < 0)
         {
+            if (!isJumping)
+            {
+                anim.SetInteger("transition", 1);
+            }
             transform.eulerAngles = new Vector3(0, 180f, 0);
+        }
+
+        if (movement == 0 && !isJumping && !isFiring)
+        {
+            if (isFiring)
+            {
+                anim.SetInteger("transition", 3);
+            }
+            else
+            {
+                anim.SetInteger("transition", 0);
+            }
         }
     }
 
@@ -51,24 +75,50 @@ public class Player1 : MonoBehaviour
         {
             if (!isJumping)
             {
+                anim.SetInteger("transition", 2);
                 rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 doubleJump = true;
                 isJumping = true;
             }
-            else
+            else if (doubleJump)
             {
-                if (doubleJump)
-                {
-                    rig.AddForce(new Vector2(0, jumpForce * 2), ForceMode2D.Impulse);
-                    doubleJump = false;
-                }
+                anim.SetInteger("transition", 2);
+                rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                doubleJump = false;
             }
+        }
+    }
+
+    void BowFire()
+    {
+        StartCoroutine(fire());
+    }
+
+    IEnumerator fire()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isFiring = true;
+            anim.SetInteger("transition", 3);
+            GameObject bow = Instantiate(Bow, FirePoint.position, FirePoint.rotation);
+
+            if (transform.rotation.y == 0)
+            {
+                bow.GetComponent<Bow>().isRight = true;
+            }
+            if (transform.rotation.y == 180)
+            {
+                bow.GetComponent<Bow>().isRight = false;
+            }
+
+            yield return new WaitForSeconds(0.2f);
+            anim.SetInteger("transition", 0);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.gameObject.layer == 8)
+        if (collisionInfo.gameObject.layer == 6)
         {
             isJumping = false;
         }
