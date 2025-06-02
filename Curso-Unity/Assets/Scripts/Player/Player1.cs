@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player1 : MonoBehaviour
 {
+    public int health = 3;
     public float speed = 10f;
     public float jumpForce;
 
@@ -21,6 +22,8 @@ public class Player1 : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        GameController.instance.UpdateHealthText(health);
     }
 
     void Update()
@@ -59,10 +62,6 @@ public class Player1 : MonoBehaviour
         if (movement == 0 && !isJumping && !isFiring)
         {
             if (isFiring)
-            {
-                anim.SetInteger("transition", 3);
-            }
-            else
             {
                 anim.SetInteger("transition", 0);
             }
@@ -112,10 +111,22 @@ public class Player1 : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.2f);
+            isFiring = false;
             anim.SetInteger("transition", 0);
         }
     }
 
+
+    public void Damage(int dmg)
+    {
+        health -= dmg;
+        GameController.instance.UpdateHealthText(health);
+        if (health <= 0)
+        {
+            //Game Over
+
+        }
+    }
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.layer == 6)

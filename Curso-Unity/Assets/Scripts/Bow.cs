@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-    public float speed = 5f; // ✅ Corrigido: declaração da variável speed
+    public float speed = 5f;
+    public int damage;
     private Rigidbody2D rig;
     public bool isRight;
 
@@ -14,13 +15,23 @@ public class Bow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isRight) {
+        if (isRight)
+        {
             rig.linearVelocity = Vector2.right * speed;
         }
         else
         {
             rig.linearVelocity = Vector2.left * speed;
         }
-        
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.GetComponent<EnemyGuy>().Damage(damage);
+            Destroy(gameObject);
+        }
     }
 }
