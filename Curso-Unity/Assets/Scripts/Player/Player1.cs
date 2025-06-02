@@ -134,7 +134,8 @@ public class Player1 : MonoBehaviour
         if (health <= 0)
         {
             //Game Over
-
+            GameController.instance.GameOver();
+            Time.timeScale = 0f;
         }
     }
 
@@ -150,6 +151,11 @@ public class Player1 : MonoBehaviour
         if (collisionInfo.gameObject.layer == 6)
         {
             isJumping = false;
+        }
+        if (collisionInfo.gameObject.layer == 7)
+        {
+            //Game Over
+            GameController.instance.GameOver();
         }
     }
 }
