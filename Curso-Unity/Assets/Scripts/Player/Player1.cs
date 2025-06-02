@@ -116,17 +116,35 @@ public class Player1 : MonoBehaviour
         }
     }
 
-
     public void Damage(int dmg)
     {
         health -= dmg;
         GameController.instance.UpdateHealthText(health);
+        anim.SetTrigger("hit");
+
+        if (transform.rotation.y == 0)
+        {
+            transform.position += new Vector3(0.5f, 0, 0);
+        }
+        if (transform.rotation.y == 180)
+        {
+            transform.position += new Vector3(-0.5f, 0, 0);
+        }
+
         if (health <= 0)
         {
             //Game Over
 
         }
     }
+
+    public void IncreaseLife(int value)
+    {
+        health += value;
+        GameController.instance.UpdateHealthText(health);
+    }
+
+
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.layer == 6)

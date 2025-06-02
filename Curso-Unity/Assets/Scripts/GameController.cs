@@ -5,7 +5,8 @@ public class GameController : MonoBehaviour
 {
     public Text healthText;
     public static GameController instance;
-    void Start()
+    // Chamando antes de tds os Start de tds ops scripts
+    void Awake()
     {
         instance = this;
     }
