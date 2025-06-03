@@ -10,6 +10,7 @@ public class Player1 : MonoBehaviour
     public GameObject Bow;
     public Transform FirePoint;
     public AudioSource audioSourceArrow;
+    public AudioSource audioSourceJump;
 
     private bool isJumping;
     private bool doubleJump;
@@ -79,12 +80,14 @@ public class Player1 : MonoBehaviour
                 rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 doubleJump = true;
                 isJumping = true;
+                audioSourceJump.Play();
             }
             else if (doubleJump)
             {
                 anim.SetInteger("transition", 2);
                 rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 doubleJump = false;
+                audioSourceJump.Play();
             }
         }
     }

@@ -11,6 +11,7 @@ public class EnemyGuy : MonoBehaviour
     private float timer;
     private Rigidbody2D rig;
     private Animator anim;
+    public AudioSource audioSlime;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class EnemyGuy : MonoBehaviour
         {
             walkRigth = !walkRigth;
             timer = 0f;
+            audioSlime.Play();
         }
 
         if (walkRigth)
