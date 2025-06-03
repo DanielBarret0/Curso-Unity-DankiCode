@@ -27,11 +27,22 @@ public class Bow : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("Enemy"))
     {
-        if (collision.gameObject.tag == "Enemy")
+        EnemyGuy enemyGuy = collision.GetComponent<EnemyGuy>();
+        if (enemyGuy != null)
         {
-            collision.GetComponent<EnemyGuy>().Damage(damage);
-            Destroy(gameObject);
+            enemyGuy.Damage(damage);
         }
+
+        EnemySlime enemySlime = collision.GetComponent<EnemySlime>();
+        if (enemySlime != null)
+        {
+            enemySlime.Damage(damage);
+        }
+
+        Destroy(gameObject);
     }
+}
 }

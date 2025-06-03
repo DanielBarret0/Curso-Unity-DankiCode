@@ -122,20 +122,19 @@ public class Player1 : MonoBehaviour
         GameController.instance.UpdateHealthText(health);
         anim.SetTrigger("hit");
 
-        if (transform.rotation.y == 0)
+        if (transform.rotation.x == 0)
         {
-            transform.position += new Vector3(0.5f, 0, 0);
+            transform.position += new Vector3(1f, 0, 0);
         }
-        if (transform.rotation.y == 180)
+        if (transform.rotation.x == 180)
         {
-            transform.position += new Vector3(-0.5f, 0, 0);
+            transform.position += new Vector3(-1f, 0, 0);
         }
 
         if (health <= 0)
         {
             //Game Over
             GameController.instance.GameOver();
-            Time.timeScale = 0f;
         }
     }
 

@@ -67,7 +67,9 @@ public class GameController : MonoBehaviour
     }
 
     public void GameOver()
-    {
+    {   
+        Debug.Log("GameOver chamado - pausando o jogo");
+        isPaused = true;  
         gameOverObj.SetActive(true);
         Time.timeScale = 0f;
     }
