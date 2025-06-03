@@ -9,6 +9,7 @@ public class Player1 : MonoBehaviour
 
     public GameObject Bow;
     public Transform FirePoint;
+    public AudioSource audioSourceArrow;
 
     private bool isJumping;
     private bool doubleJump;
@@ -109,6 +110,8 @@ public class Player1 : MonoBehaviour
             {
                 bow.GetComponent<Bow>().isRight = false;
             }
+
+            audioSourceArrow.Play();
 
             yield return new WaitForSeconds(0.2f);
             isFiring = false;
